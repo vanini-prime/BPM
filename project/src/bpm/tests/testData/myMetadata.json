@@ -1,0 +1,10 @@
+{
+    "nome": "String",
+    "endereco": "String",
+    "CPF": "String",
+    "dataSolicitacao": "Date",
+    "valorSolicitado": "Float",
+    "limiteCalculado": "Float",
+    "status": "String",
+    "historico": "StringList"
+  }

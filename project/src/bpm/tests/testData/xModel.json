@@ -1,0 +1,186 @@
+{
+  "start": {
+    "name": "",
+    "id": "7e0f2c7e-ca5b-4f95-b327-05f7ea6bcddb",
+    "type": "StartEvent",
+    "lane": "Proponente",
+    "preds": [],
+    "succs": [
+      "c1398b11-6178-4d60-8032-8d2d9948eba4"
+    ]
+  },
+  "activities": [
+    {
+      "name": "Elaborar Proposta",
+      "id": "c1398b11-6178-4d60-8032-8d2d9948eba4",
+      "task": true,
+      "type": "UserTask",
+      "loop": false,
+      "lane": "Proponente",
+      "preds": [
+        "7e0f2c7e-ca5b-4f95-b327-05f7ea6bcddb"
+      ],
+      "succs": [
+        "00fd33e3-7daa-46a2-aed3-e86b4510fde1"
+      ],
+      "onEnable": "script_0",
+      "onCommit": "script_1"
+    },
+    {
+      "name": "Resultado",
+      "id": "46c660d0-13d6-457c-b78e-64b55d0e7215",
+      "task": true,
+      "type": "UserTask",
+      "loop": false,
+      "lane": "Proponente",
+      "preds": [
+        "7366c79e-2e23-499b-8e22-9d1611d388fc"
+      ],
+      "succs": [
+        "f53f1b08-0822-405c-be64-dec2109ebc4d"
+      ],
+      "onEnable": "script_2",
+      "onCommit": "script_3"
+    },
+    {
+      "name": "",
+      "id": "00fd33e3-7daa-46a2-aed3-e86b4510fde1",
+      "type": "ParallelFork",
+      "lane": "Consultor de Negócio",
+      "preds": [
+        "c1398b11-6178-4d60-8032-8d2d9948eba4"
+      ],
+      "succs": [
+        "cf898bc1-ccd0-4092-addd-66fac19afa7c",
+        "05d0cb9c-4bfa-41dc-888c-960145c19eed"
+      ]
+    },
+    {
+      "name": "Analisar Proposta",
+      "id": "cf898bc1-ccd0-4092-addd-66fac19afa7c",
+      "task": true,
+      "type": "UserTask",
+      "loop": false,
+      "lane": "Consultor de Negócio",
+      "preds": [
+        "00fd33e3-7daa-46a2-aed3-e86b4510fde1"
+      ],
+      "succs": [
+        "abb2b973-4cd8-4122-a6fd-3883d1b6a6ff"
+      ],
+      "onEnable": "script_4",
+      "onCommit": "script_5"
+    },
+    {
+      "name": "Analisar Proposta",
+      "id": "05d0cb9c-4bfa-41dc-888c-960145c19eed",
+      "task": true,
+      "type": "UserTask",
+      "loop": false,
+      "lane": "Consultor Financeiro",
+      "preds": [
+        "00fd33e3-7daa-46a2-aed3-e86b4510fde1"
+      ],
+      "succs": [
+        "abb2b973-4cd8-4122-a6fd-3883d1b6a6ff"
+      ],
+      "onEnable": "script_6",
+      "onCommit": "script_7"
+    },
+    {
+      "name": "",
+      "id": "abb2b973-4cd8-4122-a6fd-3883d1b6a6ff",
+      "type": "ParallelJoin",
+      "lane": "Consultor de Negócio",
+      "preds": [
+        "cf898bc1-ccd0-4092-addd-66fac19afa7c",
+        "05d0cb9c-4bfa-41dc-888c-960145c19eed"
+      ],
+      "succs": [
+        "1c6de8cf-7be3-4725-9d0a-9abba5c8fa9b"
+      ]
+    },
+    {
+      "name": "Aprovada ?",
+      "id": "1c6de8cf-7be3-4725-9d0a-9abba5c8fa9b",
+      "type": "ExclusiveFork",
+      "lane": "Consultor de Negócio",
+      "preds": [
+        "abb2b973-4cd8-4122-a6fd-3883d1b6a6ff"
+      ],
+      "succs": [
+        "2261e717-253e-4e34-9c9a-dde79c8866f9",
+        "e2dbf6ba-cb4d-4821-9eb6-e43e1bb8d27f"
+      ],
+      "transitionMap": {
+        "SIM": "2261e717-253e-4e34-9c9a-dde79c8866f9",
+        "NÃO": "e2dbf6ba-cb4d-4821-9eb6-e43e1bb8d27f"
+      },
+      "onExec": "script_8"
+    },
+    {
+      "name": "",
+      "id": "f53f1b08-0822-405c-be64-dec2109ebc4d",
+      "type": "EndEvent",
+      "lane": "Proponente",
+      "preds": [
+        "46c660d0-13d6-457c-b78e-64b55d0e7215"
+      ],
+      "succs": []
+    },
+    {
+      "name": "",
+      "id": "7366c79e-2e23-499b-8e22-9d1611d388fc",
+      "type": "ExclusiveJoin",
+      "lane": "Consultor de Negócio",
+      "preds": [
+        "2261e717-253e-4e34-9c9a-dde79c8866f9",
+        "e2dbf6ba-cb4d-4821-9eb6-e43e1bb8d27f"
+      ],
+      "succs": [
+        "46c660d0-13d6-457c-b78e-64b55d0e7215"
+      ]
+    },
+    {
+      "name": "Emitir aprovação",
+      "id": "2261e717-253e-4e34-9c9a-dde79c8866f9",
+      "task": true,
+      "type": "ScriptTask",
+      "loop": false,
+      "lane": "Consultor de Negócio",
+      "preds": [
+        "1c6de8cf-7be3-4725-9d0a-9abba5c8fa9b"
+      ],
+      "succs": [
+        "7366c79e-2e23-499b-8e22-9d1611d388fc"
+      ],
+      "onExec": "script_9"
+    },
+    {
+      "name": "Emitir rejeição",
+      "id": "e2dbf6ba-cb4d-4821-9eb6-e43e1bb8d27f",
+      "task": true,
+      "type": "ScriptTask",
+      "loop": false,
+      "lane": "Consultor Financeiro",
+      "preds": [
+        "1c6de8cf-7be3-4725-9d0a-9abba5c8fa9b"
+      ],
+      "succs": [
+        "7366c79e-2e23-499b-8e22-9d1611d388fc"
+      ],
+      "onExec": "script_10"
+    }
+  ],
+  "metaData": {
+    "nome": "String",
+    "endereco": "String",
+    "CPF": "String",
+    "dataSolicitacao": "Date",
+    "valorSolicitado": "Float",
+    "limiteCalculado": "Float",
+    "status": "String",
+    "historico": "StringList"
+  },
+  "errors": []
+}
