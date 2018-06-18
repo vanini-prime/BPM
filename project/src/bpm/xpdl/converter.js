@@ -157,7 +157,7 @@ var Converter = (function () {
         var baseName = 'script_';
 
         function makeTxtBody(name, type, op, path){
-            const body = '{\n\n\t\t/** put your code here **/\n\t\tconsole.log("Script for { NAME, TYPE, OPERATION, name:[ NAME ] }");\nPATH\n\t}\n\n';
+            const body = '{\n\n\t\t/** put your code here **/\n\t\tconsole.log("Script for { TYPE, OPERATION, name:[ NAME ] }");\nPATH\n\t}\n\n';
             return body.replace('NAME',name).replace('TYPE',type).replace('OPERATION',op).replace('PATH',path);
         }    
         
@@ -186,7 +186,7 @@ var Converter = (function () {
             }
 
             return laneTxt + '\n\t * type: '+ type +'\n\t * name: ' + name+'\n\t * operation: '+operation+transitionsTxt+'\n\t *\n\t */\n' +
-                   '\tfunction ' + baseName +  idx + '(instanceData)' + makeTxtBody((baseName+idx), type, operation, setPath);  
+                   '\tfunction ' + baseName +  idx + '(instanceData)' + makeTxtBody((name), type, operation, setPath);  
         }
 
         var txt =  "(function () {\n\n" 
